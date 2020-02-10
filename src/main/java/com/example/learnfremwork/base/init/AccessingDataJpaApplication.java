@@ -9,16 +9,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
 
 /**
+ * comment: 定制化启动类 <br/>
  * @author meideng.zh <br/>
- * date: 2020/2/9/0009 12:46 <br/>
- * comment:
+ * date:  2020/2/10/0010 9:46 <br/>
  */
 @SpringBootApplication
-//@EnableJpaRepositories(basePackages = "com.example.learnfremwork.**")  /*默认扫描启动类的同级及以下包中的repo */
+//@EnableJpaRepositories(basePackages = "com.example.learnfremwork.**")  /**默认扫描启动类的同级及以下包中的repo */
 @ComponentScan("com.example.learnfremwork.**") // 加载在启动类上才有效
 public class AccessingDataJpaApplication {
 
@@ -56,9 +55,7 @@ public class AccessingDataJpaApplication {
             // fetch customers by last name
             log.info("CustomerPo found with findByLastName('Bauer'):");
             log.info("--------------------------------------------");
-            repository.findByLastName("Bauer").forEach(bauer -> {
-                log.info(bauer.toString());
-            });
+            repository.findByLastName("Bauer").forEach(bauer -> log.info(bauer.toString()));
             // for (CustomerPo bauer : repository.findByLastName("Bauer")) {
             //  log.info(bauer.toString());
             // }
