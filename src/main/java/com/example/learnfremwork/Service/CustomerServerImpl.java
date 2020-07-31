@@ -24,4 +24,27 @@ public class CustomerServerImpl implements CustomerServer {
     public List<CustomerPo> getAllCustomers() {
         return (List<CustomerPo>) customerRepo.findAll();
     }
+    public static void main(String[] args){
+        try {
+            test1();
+        } catch (Exception e) {
+            System.out.println("e.printStackTrace();");
+        } finally {
+            System.out.println("fff");
+        }
+    }
+
+    private static void test1() {
+        try {
+            throw new RuntimeException("测试");
+        }catch (Exception e) {
+            System.out.println("异常捕获");
+
+            throw new RuntimeException("异常测试1");
+        }finally {
+            System.out.println("finally 测试");
+        }
+    }
+
+
 }

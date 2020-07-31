@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.util.Optional;
+
 
 /**
  * comment: 定制化启动类 <br/>
@@ -32,7 +34,7 @@ public class AccessingDataJpaApplication {
     public CommandLineRunner demo( CustomerRepo repository) {
         return (args) -> {
             // save a few customers
-            repository.save(new CustomerPo("Jack", "Bauer"));
+            repository.save(new CustomerPo("Jack", "张三"));
             repository.save(new CustomerPo("Chloe", "O'Brian"));
             repository.save(new CustomerPo("Kim", "Bauer"));
             repository.save(new CustomerPo("David", "Palmer"));
@@ -47,7 +49,7 @@ public class AccessingDataJpaApplication {
             log.info("");
 
             // fetch an individual customer by ID
-            CustomerPo customer = repository.findById(1L);
+            Optional<CustomerPo> customer = repository.findById(1L);
             log.info("CustomerPo found with findById(1L):");
             log.info("--------------------------------");
             log.info(customer.toString());
