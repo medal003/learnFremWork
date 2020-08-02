@@ -2,6 +2,9 @@ package com.example.learnfremwork.Service;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.retry.annotation.Retryable;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author medal <br/>
@@ -12,7 +15,18 @@ import lombok.extern.slf4j.Slf4j;
 public class CustomRetryServiceImpl implements CustomRetryService {
     @Override
     public void simpleRetry() {
-        log.info("simpleRetry:11");
+
+    }
+
+    @Retryable
+    @Override
+    public int simpleRetry(AtomicInteger counter) {
+        log.info("simpleRetry:25  counter:[{}]",counter);
+        if (counter.incrementAndGet() < 2) {
+            throw new IllegalStateException();
+        }
+
+        return counter.intValue();
 
     }
 
