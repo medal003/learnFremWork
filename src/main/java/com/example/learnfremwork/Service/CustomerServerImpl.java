@@ -2,6 +2,7 @@ package com.example.learnfremwork.Service;
 
 import com.example.learnfremwork.model.po.CustomerPo;
 import com.example.learnfremwork.model.repo.CustomerRepo;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -47,4 +48,10 @@ public class CustomerServerImpl implements CustomerServer {
     }
 
 
+    @SneakyThrows
+    public String getTestTime() {
+        //测试日志的打印耗时问题
+        Thread.sleep(1000*30L);
+        return "OK";
+    }
 }

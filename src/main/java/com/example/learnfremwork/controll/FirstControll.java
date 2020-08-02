@@ -4,7 +4,7 @@ import com.example.learnfremwork.Service.CustomerServerImpl;
 import com.example.learnfremwork.model.po.CustomerPo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.SneakyThrows;
+import io.swagger.annotations.Authorization;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -28,18 +28,12 @@ public class FirstControll {
     private CustomerServerImpl server;
 
     @GetMapping(value = "/getall", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "api comment", notes = "api comment")
+    @ApiOperation(value = "api comment", notes = "测试api",nickname = "mmdd",authorizations = @Authorization("medal"))
     List<CustomerPo> getall(){
         if (log.isDebugEnabled()) {
-            log.debug("getall:32 测试耗时 getTestTime():[{}]",getTestTime());
+            log.debug("getall:32 测试耗时 getTestTime():[{}]", server.getTestTime());
         }
         return server.getAllCustomers();
     }
 
-    @SneakyThrows
-    private String getTestTime() {
-        //测试日志的打印耗时问题
-        Thread.sleep(1000*30L);
-        return "OK";
-    }
 }
