@@ -15,7 +15,7 @@ import java.util.Optional;
 
 /**
  * comment: 定制化启动类 <br/>
- * @author meideng.zh <br/>
+ * @author medal <br/>
  * date:  2020/2/10/0010 9:46 <br/>
  */
 //@SpringBootApplication

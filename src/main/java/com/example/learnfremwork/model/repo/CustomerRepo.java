@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * author: meideng.zh <br/>
+ * author: medal <br/>
  * date: 2020/2/9/0009 12:39 <br/>
  * comment:
  */
@@ -16,7 +16,7 @@ public interface CustomerRepo extends CrudRepository<CustomerPo, Long> {
 
     /**
      * comment: 查询测试 <br/>
-     * @author meideng.zh <br/>
+     * @author medal <br/>
      * date:  2020/2/9/0009 12:44 <br/>
      * teststatus: 未测试
      *

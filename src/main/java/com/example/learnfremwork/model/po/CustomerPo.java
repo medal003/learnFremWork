@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * author: meideng.zh <br/>
+ * author: medal <br/>
  * date: 2020/2/9/0009 12:35 <br/>
  * comment:
  */
