@@ -20,10 +20,10 @@ public class CustomRetryServiceImpl implements CustomRetryService {
 
     }
 
-    @Retryable(maxAttemptsExpression = "${retry.maxAttempts:15}",
+    @Retryable(maxAttemptsExpression = "${retry.maxAttempts:5}",
             backoff = @Backoff(delayExpression = "${retry.delay:100}",
                     maxDelayExpression = "${retry.maxDelay:2000}",
-                    multiplierExpression = "${retry.multiplier:2}",random = true))
+                    multiplierExpression = "${retry.multiplier:2}"))
     @Override
     public int simpleRetry(AtomicInteger counter) {
         log.info("simpleRetry:25  counter:[{}]",counter);
@@ -33,6 +33,16 @@ public class CustomRetryServiceImpl implements CustomRetryService {
 
         return counter.intValue();
 
+    }
+    /**
+     使用注解的可重试方法，如果重试次数达到后还是继续失败的就会抛出异常，它可以通过@Recover标记同一Class中的一个方法作为RecoveryCallback。@Recover标记的方法的返回类型必须与@Retryable标记的方法一样。方法参数可以与@Retryable标记的方法一致，也可以不带参数，带了参数就会传递过来。
+     */
+    @Recover
+    public int simpleRetryRecover(AtomicInteger counter) {
+
+        counter.set(1000);
+        log.warn("simpleRetryRecover:41  counter:[{}]",counter);
+        return counter.intValue();
     }
 
     @Override
