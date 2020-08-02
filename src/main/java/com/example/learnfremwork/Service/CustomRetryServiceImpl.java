@@ -2,6 +2,8 @@ package com.example.learnfremwork.Service;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,11 +20,14 @@ public class CustomRetryServiceImpl implements CustomRetryService {
 
     }
 
-    @Retryable
+    @Retryable(maxAttemptsExpression = "${retry.maxAttempts:15}",
+            backoff = @Backoff(delayExpression = "${retry.delay:100}",
+                    maxDelayExpression = "${retry.maxDelay:2000}",
+                    multiplierExpression = "${retry.multiplier:2}",random = true))
     @Override
     public int simpleRetry(AtomicInteger counter) {
         log.info("simpleRetry:25  counter:[{}]",counter);
-        if (counter.incrementAndGet() < 2) {
+        if (counter.incrementAndGet() < 10) {
             throw new IllegalStateException();
         }
 
