@@ -34,7 +34,7 @@ public class CustomerServerImpl implements CustomerServer {
     }
 
     @Override
-    //@Transactional
+    @Transactional
     public CustomerPo getOneCustomer(Long id) {
         log.info("getOneCustomer:35  :[{}],[{}]",TransactionSynchronizationManager.isActualTransactionActive(),TransactionSynchronizationManager.getCurrentTransactionName());
 
