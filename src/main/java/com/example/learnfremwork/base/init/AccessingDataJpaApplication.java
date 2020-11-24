@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.util.Date;
 import java.util.Optional;
 
 
@@ -34,11 +35,12 @@ public class AccessingDataJpaApplication {
     public CommandLineRunner demo( CustomerRepo repository) {
         return (args) -> {
             // save a few customers
-            repository.save(new CustomerPo("Jack", "张三"));
-            repository.save(new CustomerPo("Chloe", "O'Brian"));
-            repository.save(new CustomerPo("Kim", "Bauer"));
-            repository.save(new CustomerPo("David", "Palmer"));
-            repository.save(new CustomerPo("Michelle", "Dessler"));
+            repository.save(new CustomerPo("Jack", "张三",new Date()));
+            repository.save(new CustomerPo("Chloe", "O'Brian",new Date()));
+            repository.save(new CustomerPo("Kim", "Bauer",new Date()));
+            repository.save(new CustomerPo("David", "Palmer",new Date()));
+            repository.save(new CustomerPo("Michelle", "Dessler",new Date()));
+            repository.save(new CustomerPo("Michelle", "Dessler",new Date()));
 
             // fetch all customers
             log.info("Customers found with findAll():");

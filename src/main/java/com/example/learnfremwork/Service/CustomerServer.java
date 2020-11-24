@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface CustomerServer {
     List<CustomerPo> getAllCustomers();
+
+    CustomerPo getOneCustomer(Long id);
 }

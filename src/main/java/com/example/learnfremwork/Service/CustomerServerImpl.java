@@ -3,9 +3,12 @@ package com.example.learnfremwork.Service;
 import com.example.learnfremwork.model.po.CustomerPo;
 import com.example.learnfremwork.model.repo.CustomerRepo;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.util.List;
 
@@ -15,6 +18,7 @@ import java.util.List;
  * comment:
  */
 @Service
+@Slf4j
 public class CustomerServerImpl implements CustomerServer {
 
     @Qualifier("customerRepo")
@@ -22,9 +26,21 @@ public class CustomerServerImpl implements CustomerServer {
     private CustomerRepo customerRepo;
 
     @Override
+    @Transactional
     public List<CustomerPo> getAllCustomers() {
+        log.info("getAllCustomers:31  :[{}],[{}]",TransactionSynchronizationManager.isActualTransactionActive(),TransactionSynchronizationManager.getCurrentTransactionName());
+        getOneCustomer(100L);
         return (List<CustomerPo>) customerRepo.findAll();
     }
+
+    @Override
+    //@Transactional
+    public CustomerPo getOneCustomer(Long id) {
+        log.info("getOneCustomer:35  :[{}],[{}]",TransactionSynchronizationManager.isActualTransactionActive(),TransactionSynchronizationManager.getCurrentTransactionName());
+
+        return customerRepo.findById(id).orElse(null);
+    }
+
     public static void main(String[] args){
         try {
             test1();
