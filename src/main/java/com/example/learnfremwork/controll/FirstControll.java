@@ -2,6 +2,7 @@ package com.example.learnfremwork.controll;
 
 import com.example.learnfremwork.Service.CustomRetryService;
 import com.example.learnfremwork.Service.CustomerServerImpl;
+import com.example.learnfremwork.Service.LnThreadLocalService;
 import com.example.learnfremwork.model.po.CustomerPo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,6 +11,7 @@ import io.swagger.annotations.Authorization;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +36,9 @@ public class FirstControll {
     private CustomerServerImpl server;
     @Autowired
     CustomRetryService customRetryService;
+    @Autowired
+    private LnThreadLocalService localService;
+
 
     @GetMapping(value = "/getall", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "api comment", notes = "测试api",nickname = "mmdd",authorizations = @Authorization("medal"))
@@ -65,6 +70,13 @@ public class FirstControll {
     public void parallelStreamJvm() {
         server.getAllCustomers();
         //server.getOneCustomer(100L);
+    }
+
+    @GetMapping(value = "/threaLocalTest1", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "测试TreadLocal", notes = "测试TreadLocal")
+    @Transactional(rollbackFor = Exception.class)
+    public void threaLocalTest1() {
+        localService.maintainLocalhostRefer();
     }
 
 }

@@ -1,6 +1,10 @@
 package com.example.learnfremwork.Service;
 
 import com.example.learnfremwork.model.po.CustomerPo;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
@@ -11,8 +15,11 @@ import java.lang.ref.WeakReference;
  * date: 2020/11/26/0026 14:58:50 <br/>
  * comment: 学习ThreadLocal类
  */
+@Service
+@Slf4j
 public class LnThreadLocalService {
     /**
+     * ThreadLocal里用到了弱引用，下面是弱引用的测试
      * 可以看到在队列中（ReferenceQueue），调用gc之前是没有内容的，调用gc之后，对象被回收了，并且弱引用对象appleWeakReference和appleWeakReference2被放入了队列中。
      *
      * 关于其他三种引用，强引用、软引用、虚引用，可以参考http://www.cnblogs.com/gudi/p/6403953.html
@@ -56,8 +63,24 @@ public class LnThreadLocalService {
         }
         
     }
+
+
+
     public static void main(String[] args){
         LnThreadLocalService lnThreadLocalService = new LnThreadLocalService();
         lnThreadLocalService.lnWeakRefrence();
+    }
+
+
+    public void maintainLocalhostRefer() {
+        log.info("maintainLocalhostRefer:75  :[{}],[{}]",TransactionSynchronizationManager.isActualTransactionActive(),TransactionSynchronizationManager.getCurrentTransactionName());
+        testMaintainRefer();
+
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void testMaintainRefer() {
+        log.info("testMaintainRefer:75  :[{}],[{}]",TransactionSynchronizationManager.isActualTransactionActive(),TransactionSynchronizationManager.getCurrentTransactionName());
+
     }
 }
